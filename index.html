@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>مساعدك الصحي — تطبيق</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Intro / Splash -->
+  <section id="intro" class="intro">
+    <div class="intro-card">
+      <div class="logo">💙</div>
+      <h1>مساعدك الصحي</h1>
+      <p class="lead">حافظ على صحتك بسهولة — دواء، نصيحة، راحة وتمارين</p>
+      <div class="row">
+        <button id="startBtn" class="btn primary">ابدأ الآن</button>
+        <button id="demoBtn" class="btn">عرض سريع</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- App -->
+  <div id="app" class="app hidden" role="application" aria-live="polite">
+    <!-- top bar -->
+    <header class="topbar">
+      <div class="left">
+        <button id="menuBtn" class="icon-btn" aria-label="القائمة">☰</button>
+        <div class="title">مساعدك الصحي</div>
+      </div>
+      <div class="right">
+        <button id="moodBtn" class="icon-btn" title="سجل مزاجك">😊</button>
+        <button id="darkToggle" class="icon-btn" title="الوضع الليلي">🌙</button>
+      </div>
+    </header>
+
+    <!-- animated sidebar -->
+    <aside id="sidebar" class="sidebar" aria-hidden="true">
+      <div class="sidebar-header">
+        <div class="logo">💙</div>
+        <div class="app-name">مساعدك الصحي</div>
+        <button id="closeSidebar" class="icon-btn">✕</button>
+      </div>
+      <nav>
+        <ul>
+          <li data-page="page-meds">💊 منظم الأدوية</li>
+          <li data-page="page-ai">🧠 المساعد الطبي</li>
+          <li data-page="page-notes">📝 الملاحظات</li>
+          <li data-page="page-extras">⚡ إضافات</li>
+          <li data-page="page-hospital">🏥 أقرب مستشفى/صيدلية</li>
+          <li data-page="page-history">📈 تاريخ النشاط</li>
+        </ul>
+      </nav>
+    </aside>
+
+    <!-- floating add button -->
+    <button id="fab" class="fab" title="أضف سريع">＋</button>
+
+    <!-- main pages -->
+    <main class="main" id="mainContent">
+      <!-- meds -->
+      <section id="page-meds" class="page active" data-color="blue">
+        <div class="page-head">
+          <h2>💊 منظم الأدوية</h2>
+          <p class="muted">أضف دواء ووقت، واحصل على تذكير صوتي.</p>
+        </div>
+
+        <div class="card">
+          <input id="medName" type="text" placeholder="اسم الدواء" aria-label="اسم الدواء" />
+          <input id="medTime" type="time" />
+          <label class="row-inline"><input id="repeatCheckbox" type="checkbox"> تذكير يومي</label>
+          <div class="row">
+            <button id="addMedBtn" class="btn">أضف</button>
+            <button id="clearMedsBtn" class="btn danger">مسح الكل</button>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>قائمتي</h3>
+          <ul id="medList" class="list"></ul>
+        </div>
+      </section>
+
+      <!-- ai -->
+      <section id="page-ai" class="page hidden" data-color="purple">
+        <div class="page-head">
+          <h2>🧠 المساعد الطبي</h2>
+          <p class="muted">اسأل بصوتك أو اكتب سؤالك وسيجيبك التطبيق بطريقة مبسطة.</p>
+        </div>
+
+        <div class="card">
+          <input id="question" type="text" placeholder="اكتب سؤالك الطبي..." />
+          <div class="row">
+            <button id="askAiBtn" class="btn">إرسال</button>
+            <button id="speakBtn" class="btn">🎤 قول سؤالك</button>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>الرد</h3>
+          <div id="aiAnswer" class="ai-answer">هنا سيظهر رد المساعد.</div>
+        </div>
+      </section>
+
+      <!-- notes -->
+      <section id="page-notes" class="page hidden" data-color="green">
+        <div class="page-head">
+          <h2>📝 ملاحظات</h2>
+          <p class="muted">مفكرة بسيطة تحفظ تلقائيًا.</p>
+        </div>
+
+        <div class="card">
+          <textarea id="notesBox" rows="8" placeholder="اكتب ملاحظاتك هنا..."></textarea>
+          <div class="row">
+            <button id="saveNotesBtn" class="btn">💾 حفظ</button>
+            <button id="clearNotesBtn" class="btn">مسح</button>
+          </div>
+          <p id="savedMsg" class="saved-msg">✅ تم الحفظ</p>
+        </div>
+      </section>
+
+      <!-- extras -->
+      <section id="page-extras" class="page hidden" data-color="teal">
+        <div class="page-head">
+          <h2>⚡ إضافات مفيدة</h2>
+          <p class="muted">نصيحة يومية، تمارين مع فيديو، موسيقى، حساب سعرات وتنفس.</p>
+        </div>
+
+        <div class="card">
+          <h3>🌟 نصيحة اليوم</h3>
+          <p id="dailyTip" class="tip">...</p>
+          <div class="row">
+            <button id="newTipBtn" class="btn">نصيحة جديدة</button>
+            <button id="saveTipBtn" class="btn">حفظ</button>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>🧘 تمرين اليوم</h3>
+          <p id="exerciseText">...</p>
+          <div class="row">
+            <button id="newExerciseBtn" class="btn">تمرين آخر</button>
+            <button id="showExerciseVideoBtn" class="btn">🎥 شاهد التمرين</button>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>🎶 موسيقى هادئة</h3>
+          <p class="muted">اضغط تشغيل مرة لتشغيل/إيقاف.</p>
+          <div class="row">
+            <button id="playMusicBtn" class="btn">▶ تشغيل / إيقاف</button>
+            <button id="changeTrackBtn" class="btn">تغيير المسار</button>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>🍎 حساب السعرات</h3>
+          <input id="calInput" type="text" placeholder="تفاحة، بيض، رغيف" />
+          <div class="row">
+            <button id="calcBtn" class="btn">احسب</button>
+            <button id="clearCalcBtn" class="btn">مسح</button>
+          </div>
+          <p id="calResult" class="muted">النتيجة هنا</p>
+        </div>
+
+        <div class="card">
+          <h3>🕯️ تمرين تنفُّس</h3>
+          <p id="breathingText" class="muted">اضغط ابدأ للتمرين 1-4-2</p>
+          <div class="row">
+            <button id="startBreathBtn" class="btn">ابدأ</button>
+            <button id="stopBreathBtn" class="btn">إيقاف</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- hospital -->
+      <section id="page-hospital" class="page hidden" data-color="orange">
+        <div class="page-head">
+          <h2>🏥 أقرب مستشفى / صيدلية</h2>
+          <p class="muted">اسمح بالوصول للموقع لفتح نتائج في خرائط Google.</p>
+        </div>
+        <div class="card">
+          <div class="row">
+            <button id="findHospitalBtn" class="btn">اعرض القريب</button>
+            <button id="openMapsBtn" class="btn">افتح الخريطة</button>
+          </div>
+          <p id="mapNote" class="muted">تأكد من تفعيل مشاركة الموقع.</p>
+        </div>
+      </section>
+
+      <!-- history -->
+      <section id="page-history" class="page hidden" data-color="gray">
+        <div class="page-head">
+          <h2>📈 تاريخ النشاط</h2>
+          <p class="muted">سجل بسيط لأنشطتك: أدوية، تمارين، ملاحظات.</p>
+        </div>
+        <div class="card">
+          <ul id="activityLog" class="list"></ul>
+          <div class="row">
+            <button id="clearHistoryBtn" class="btn danger">مسح السجل</button>
+            <button id="exportBtn" class="btn">تصدير</button>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- bottom nav -->
+    <nav class="bottom-nav" role="navigation">
+      <button class="nav-btn active" data-page="page-meds">💊</button>
+      <button class="nav-btn" data-page="page-ai">🧠</button>
+      <button class="nav-btn" data-page="page-notes">📝</button>
+      <button class="nav-btn" data-page="page-extras">⚡</button>
+    </nav>
+  </div>
+
+  <!-- Video modal -->
+  <dialog id="videoDialog" class="video-dialog" aria-modal="true">
+    <button id="closeVideo" class="close-dialog">✕</button>
+    <div class="video-wrap">
+      <iframe id="exerciseIframe" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
+  </dialog>
+
+  <!-- audio element (music) -->
+  <audio id="musicTrack" src="" preload="none"></audio>
+
+  <!-- small sound fx using WebAudio (generated) -->
+  <script src="script.js"></script>
+</body>
+</html>
